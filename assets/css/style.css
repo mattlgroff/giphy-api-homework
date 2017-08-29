@@ -1,0 +1,13 @@
+button {
+	margin: 6px;
+	background-color: teal;
+	color: #FFF;
+}
+
+.form-control {
+	width: 25%;
+}
+
+.form {
+	margin: 6px;
+}

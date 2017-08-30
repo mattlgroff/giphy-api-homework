@@ -19,7 +19,8 @@ $(document).ready( function(){
   createButtons(topics);
   createSearchBox();
 
-  $("button").on("click", function(){
+  //Just doing btn on click will not work after we add new buttons.
+  $("body").on("click", '.btn', function(){
     buttonClicked(this);
   });
 
@@ -29,6 +30,18 @@ function createButtons(array){
 
   $("body")
     .append($("<header>"));
+
+  for (i = 0; i < array.length; i++){
+    var button = "<button class='btn' id='" + array[i] + "'>" + array[i];
+
+    $("header")
+      .append(button);
+  }
+}
+
+function newButtons(array){
+
+ $("header").html("");
 
   for (i = 0; i < array.length; i++){
     var button = "<button class='btn' id='" + array[i] + "'>" + array[i];
@@ -55,6 +68,8 @@ function createSearchBox(){
 
 function buttonClicked(scope){
 
+  console.log("Button clicked.");
+
   var pressed = $(scope).attr("id");
 
   if (topics.indexOf(pressed) !== -1){
@@ -76,6 +91,13 @@ function searchBtnPressed(){
     console.log("You typed nothing in the search box.");
   }
   else {
+
+    topics.push(query)
+
+    newButtons(topics);
+
+    $("#custom").val(" ");
+
     gifSearch(query);
   }
 
@@ -96,7 +118,7 @@ function gifSearch(searchTerm){
   //Make a returnedObj out of the json file from giphy's API
   var returnedObj = $.get(url);
 
-  //.done runs once it is finished loading. 
+  //.done runs once it is finished loading.
   returnedObj.done(function(data) {
 
     //If No Results
@@ -110,49 +132,45 @@ function gifSearch(searchTerm){
         .text("Sorry, no results.");  
 
     }
-    //If Less Than 10 Results..
-    else if (data.data.length < limit){
-
-      $(".container")
-        .append($("<p id='fewResults'>"));
-
-      $("#noResults")
-        .text("There is less than " + limit + " results.");  
-
-      for (var i = 0; i < data.data.length; i++){
-        var src = "<img src='" + data.data[i].images.fixed_width.url + "'>",
-            rating = "<p id='" + "rating" + data.data[i].id + "' class='rating'>" + data.data[i].rating; 
-
-        $(".container")
-          .append($("<div class='gifHolder' id='" + data.data[i].id + "'>"));
-
-        $("#" + data.data[i].id)
-          .append($(rating)) 
-          .append($(src)); 
-
-        $("#" + "rating" + data.data[i].id).text("Rated " + data.data[i].rating.toUpperCase());
-      
-      }
-
-    }
-    //If there are 10 (limit) or more results
+    //If there are more than 0 results
     else {
 
       //Runs X amount of times according to the limit variable.
       for (var i = 0; i < limit; i++){
-        var src = "<img src='" + data.data[i].images.fixed_width.url + "'>",
+        var src = "<img id='" + i + "' static='true' src='" + data.data[i].images.fixed_width_still.url + "'>",
             rating = "<p id='" + "rating" + data.data[i].id + "' class='rating'>" + data.data[i].rating; 
 
         $(".container")
           .append($("<div class='gifHolder' id='" + data.data[i].id + "'>"));
 
         $("#" + data.data[i].id)
-          .append($(rating)) 
-          .append($(src)); 
+          .append($(src))
+          .append($(rating));
 
         $("#" + "rating" + data.data[i].id).text("Rated " + data.data[i].rating.toUpperCase());
       
       }
+
+
+      //If an image is clicked, make it animated. Or unanimated.
+      $("img").on("click", function(){
+        var id = $(this).attr("id");
+
+        if ($(this).attr("static") === "true"){
+          $(this).attr("src", data.data[id].images.fixed_width.url);
+          $(this).attr("static", "false");
+        }
+        else if ($(this).attr("static") === "false"){
+          $(this).attr("src", data.data[id].images.fixed_width_still.url);
+          $(this).attr("static", "true");
+        }
+        else {
+          console.log("Something is wrong. Static is: " + $(this).attr("static"));
+        }
+
+        
+      });
+
     }
 
     

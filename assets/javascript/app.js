@@ -113,7 +113,7 @@ function gifSearch(searchTerm){
     .append($("<div class='main container'>"));
 
   //API Stuff
-  var url = "http://api.giphy.com/v1/gifs/search?q=" + searchTerm + "&" + rating + "&api_key=" + apiKey + "&limit=" + limit;
+  var url = "https://api.giphy.com/v1/gifs/search?q=" + searchTerm + "&" + rating + "&api_key=" + apiKey + "&limit=" + limit;
 
   //Make a returnedObj out of the json file from giphy's API
   var returnedObj = $.get(url);

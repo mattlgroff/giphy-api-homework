@@ -11,3 +11,8 @@ button {
 .form {
 	margin: 6px;
 }
+
+.gifHolder {
+	display:inline-block;
+	margin: 6px;
+}

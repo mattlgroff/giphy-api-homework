@@ -18,6 +18,7 @@ $(document).ready( function(){
 
   //Just doing btn on click will not work after we add new buttons.
   $("body").on("click", '.btn', function(){
+    event.preventDefault();
     buttonClicked(this);
   });
 
@@ -47,12 +48,13 @@ function newButton(query){
 function createSearchBox(){
 
   $("body")
-    .append($("<div class='form'>"));
+    .append($("<form class='searchForm'>"));
 
-  $(".form")  
+  $(".searchForm")  
     .append($("<label for='custom'>"))
     .append($("<input type='text' class='form-control' id='custom'>"))
-    .append($("<button class='btn' id='searchBtn'>"));
+    .append($("<input class='btn' id='searchBtn' type='submit' value='Search'>"));
+    //.append($("<button class='btn' id='searchBtn'>"));
 
   $("label").text("Custom Search: ");
   $("#searchBtn").text("Search");

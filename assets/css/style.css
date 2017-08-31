@@ -1,4 +1,4 @@
-button {
+.btn {
 	margin: 6px;
 	background-color: teal;
 	color: #FFF;
@@ -8,7 +8,7 @@ button {
 	width: 25%;
 }
 
-.form {
+.searchForm {
 	margin: 6px;
 }
 

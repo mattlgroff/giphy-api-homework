@@ -12,15 +12,9 @@ var topics = [
   	];
 
 $(document).ready( function(){
-	//console.log("Document is ready.");
+
   createButtons(topics);
   createSearchBox();
-
-  //Just doing btn on click will not work after we add new buttons.
-  $(document).on("click", '.btn', function(){
-    event.preventDefault();
-    buttonClicked(this);
-  });
 
 });
 
@@ -33,7 +27,14 @@ function createButtons(array){
     var button = "<button class='btn' id='" + array[i] + "'>" + array[i];
 
     $("header")
-      .append(button);
+      .append(
+        $(button)
+        .text(array[i])
+        .on("click", function(){
+          buttonClicked(this);
+        })
+        
+      );
   }
 }
 
@@ -42,7 +43,14 @@ function newButton(query){
     var button = "<button class='btn' id='" + query + "'>" + query;
 
     $("header")
-      .append(button);
+      .append(
+        $(button)
+        .text(query)
+        .on("click", function(){
+          buttonClicked(this);
+        })
+        
+      );
 }
 
 function createSearchBox(){
@@ -54,16 +62,19 @@ function createSearchBox(){
     .append($("<label for='custom'>"))
     .append($("<input type='text' class='form-control' id='custom'>"))
     .append($("<input class='btn' id='searchBtn' type='submit' value='Search'>"));
-    //.append($("<button class='btn' id='searchBtn'>"));
 
   $("label").text("Custom Search: ");
-  $("#searchBtn").text("Search");
+
+  $("#searchBtn")
+    .on("click", function (){
+      event.preventDefault();
+      buttonClicked($(this));
+    })
+    .text("Search");
 
 }
 
 function buttonClicked(scope){
-
-  console.log("Button clicked.");
 
   var pressed = $(scope).attr("id");
 

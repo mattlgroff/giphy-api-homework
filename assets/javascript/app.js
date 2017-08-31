@@ -1,7 +1,4 @@
-var apiKey = "e9f95e9854974af3ac89fd3e68fa0759",
-    limit = 10,
-    rating = "rating=pg",
-  	topics = [
+var topics = [
   		"cats",
   		"dogs",
   		"bats",
@@ -111,6 +108,10 @@ function gifSearch(searchTerm){
   //Append a bootstrap container to the body
   $("body")
     .append($("<div class='main container'>"));
+
+  var apiKey = "e9f95e9854974af3ac89fd3e68fa0759",
+      limit = 10,
+      rating = "rating=pg";
 
   //API Stuff
   var url = "https://api.giphy.com/v1/gifs/search?q=" + searchTerm + "&" + rating + "&api_key=" + apiKey + "&limit=" + limit;

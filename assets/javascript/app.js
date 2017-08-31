@@ -36,16 +36,12 @@ function createButtons(array){
   }
 }
 
-function newButtons(array){
+function newButton(query){
 
- $("header").html("");
-
-  for (i = 0; i < array.length; i++){
-    var button = "<button class='btn' id='" + array[i] + "'>" + array[i];
+    var button = "<button class='btn' id='" + query + "'>" + query;
 
     $("header")
       .append(button);
-  }
 }
 
 function createSearchBox(){
@@ -91,7 +87,7 @@ function searchBtnPressed(){
 
     topics.push(query)
 
-    newButtons(topics);
+    newButton(query);
 
     $("#custom").val(" ");
 

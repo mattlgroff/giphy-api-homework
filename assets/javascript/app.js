@@ -17,7 +17,7 @@ $(document).ready( function(){
   createSearchBox();
 
   //Just doing btn on click will not work after we add new buttons.
-  $("body").on("click", '.btn', function(){
+  $(document).on("click", '.btn', function(){
     event.preventDefault();
     buttonClicked(this);
   });
